@@ -1,0 +1,42 @@
+---
+title: "Untitled"
+output: html_document
+date: "2025-12-08"
+---
+
+```{r}
+library(sf)
+
+# 你的 ZIP 链接
+url <- "https://github.com/JiayiCheng-UCL/CASA0005/raw/refs/heads/main/evictions/shape.zip"
+
+# 1. 下载 zip
+tmp <- tempfile(fileext = ".zip")
+download.file(url, tmp, mode = "wb")
+
+# 2. 解压
+unzipped_dir <- tempdir()
+unzip(tmp, exdir = unzipped_dir)
+
+# 3. 在解压目录中自动寻找 .shp 文件
+shp_path <- list.files(
+  unzipped_dir,
+  pattern = "\\.shp$",
+  recursive = TRUE,
+  full.names = TRUE
+)
+
+print(shp_path)  # 看看找到的是哪个 .shp
+
+# 4. 读取 shapefile
+nycd <- st_read(shp_path[1])
+
+# 5. 画图
+plot(nycd$geometry, main = "NYCD Shapefile")
+
+```
+```{r}
+
+
+```
+
