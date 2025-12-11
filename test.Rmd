@@ -35,8 +35,21 @@ nycd <- st_read(shp_path[1])
 plot(nycd$geometry, main = "NYCD Shapefile")
 
 ```
+
 ```{r}
+library(here)
 
+df <- read.csv(here("evictions", "Evictions_20251103.csv"))
 
+```
+```{r}
+library(sf)
+library(here)
+
+# 读取 Shapefile
+shp <- st_read(here("evictions", "shape", "nycd.shp"))
+
+# 画图
+plot(st_geometry(shp), main = "NYCD Shapefile")
 ```
 
